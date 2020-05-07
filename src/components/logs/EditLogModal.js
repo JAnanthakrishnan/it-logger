@@ -1,20 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import M from 'materialize-css/dist/js/materialize.min.js'
+import PropTypes from 'prop-types'
 
-const EditLogModal = () => {
+import {connect} from 'react-redux'
+import {updateLog} from '../../actions/logActions'
+
+import TechSelectOptions from '../techs/TechSelectOptions'
+
+const EditLogModal = ({current,updateLog}) => {
     const [msg,setMsg]=useState('');
     const [attn,setAttn]=useState(false);
     const [tech,setTech]=useState('');
+    useEffect(()=>{
+        if(current){
+            setMsg(current.message);
+            setAttn(current.attention);
+            setTech(current.tech);
+        }
+    },[current])
     const onSubmit = (e)=>{
         e.preventDefault();
         if(msg===''||tech===''){
             M.toast({html:'Please enter a message and tech'})
         } else {
-            console.log(msg,attn,tech);
-            //Clear Fields
-            setAttn(false);
-            setMsg('');
-            setTech('');
+            const updLog = {
+                id:current.id,
+                message:msg,
+                attention:attn,
+                tech
+            }
+            var today = new Date();
+            var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear() + ", " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            updLog.date = date
+            updateLog(updLog);
+            M.toast({html:`Log updated by ${tech}`})
         }
         
     }
@@ -25,9 +44,9 @@ const EditLogModal = () => {
                 <div className="row">
                     <div className="input-field">
                         <input type="text" name='msg' value={msg} onChange={e=>setMsg(e.target.value)}/>
-                        <label htmlFor="msg" className="active">
+                        {/* <label htmlFor="msg" className="active">
                             Log Message
-                        </label>
+                        </label> */}
                     </div>
                 </div>
                 <div className="row">
@@ -36,15 +55,7 @@ const EditLogModal = () => {
                             <option value="" disabled>
                                 Select Technician
                             </option>
-                            <option value="John Smith">
-                                John Smith
-                            </option>
-                            <option value="Sam Doe">
-                                Sam Doe
-                            </option>
-                            <option value="Mary Jane">
-                                Mary Jane
-                            </option>
+                            <TechSelectOptions/>
                         </select>
                     </div>
                 </div>
@@ -69,5 +80,12 @@ const modalStyle = {
     width:'75%',
     height:'75%'
 }
+EditLogModal.propTypes = {
+    current:PropTypes.object,
+    updateLog:PropTypes.func.isRequired,
+}
+const mapStateToProps = (state)=>({
+    current : state.log.current
+})
 
-export default EditLogModal
+export default connect(mapStateToProps,{updateLog})(EditLogModal)

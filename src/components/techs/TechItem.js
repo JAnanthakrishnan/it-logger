@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-const TechItem = ({tech}) => {
+import {deleteTech} from '../../actions/techActions'
+import {connect} from 'react-redux'
+const TechItem = ({deleteTech,tech}) => {
     return (
         <li className="collection-item">
             <div>
                 {tech.firstName} {tech.lastName}
-                <a href="#!" className="secondary-content">
+                <a href="#!" onClick={()=>deleteTech(tech.id)} className="secondary-content">
                     <i className="material-icons red-text">remove</i>
                 </a>
             </div>
@@ -16,6 +17,7 @@ const TechItem = ({tech}) => {
 
 TechItem.propTypes = {
     tech:PropTypes.object.isRequired,
+    deleteTech:PropTypes.func.isRequired,
 }
 
-export default TechItem
+export default connect(null,{deleteTech})(TechItem)

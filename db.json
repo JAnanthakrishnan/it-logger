@@ -1,42 +1,42 @@
 {
-    "logs":[
-        {
-            "id":1,
-            "message":"Changed hard drive on workstation 005",
-            "attention":false,
-            "date":"03-05-2020",
-            "tech":"Sam Doe"
-        },
-        {
-            "id":2,
-            "message":"Workstation 003 not posting",
-            "attention":true,
-            "date":"03-05-2020",
-            "tech":"John Smith"
-        },
-        {
-            "id":3,
-            "message":"Changed memory on workstation 055",
-            "attention":false,
-            "date":"03-05-2020",
-            "tech":"Mary Jane"
-        }
-    ],
-    "techs":[
-        {
-            "id":1,
-            "firstName":"John",
-            "lastName":"Smith"
-        },
-        {
-            "id":2,
-            "firstName":"Sam",
-            "lastName":"Doe"
-        },
-        {
-            "id":3,
-            "firstName":"Mary",
-            "lastName":"Jane"
-        }
-    ]
+  "logs": [
+    {
+      "message": "Changed network card in server 007",
+      "attention": false,
+      "tech": "John Smith",
+      "date": "2020-5-5",
+      "id": 1
+    },
+    {
+      "message": "Changed memory in workstation 066",
+      "attention": false,
+      "tech": "Mary Jane",
+      "date": "2020-5-5",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "message": "Fixed 1122 wireless down",
+      "attention": false,
+      "tech": "Sam Doe",
+      "date": "5/5/2020, 21:59:29"
+    }
+  ],
+  "techs": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Smith"
+    },
+    {
+      "firstName": "Mary",
+      "lastName": "Jane",
+      "id": 2
+    },
+    {
+      "firstName": "Sam",
+      "lastName": "Doe",
+      "id": 3
+    }
+  ]
 }
